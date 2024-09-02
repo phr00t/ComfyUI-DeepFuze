@@ -950,7 +950,7 @@ class DeepFuzeAdavance:
                 "device" : (["cpu","cuda","mps"],{"default":"cpu"}),
                 "frame_rate": (
                     "FLOAT",
-                    {"default": 25, "min": 1, "step": 1},
+                    {"default": 25, "min": 0, "step": 1},
                 ),
 
             },
@@ -1004,6 +1004,9 @@ class DeepFuzeAdavance:
         manual_format_widgets=None,
         meta_batch=None
     ):
+        if frame_rate == 0:
+            return (images, 0, audio, None)
+        
         print(enhancer,frame_rate,format)
         if isinstance(images, torch.Tensor) and images.size(0) == 0:
             return ("",)
