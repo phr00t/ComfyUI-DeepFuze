@@ -514,12 +514,12 @@ def get_many_faces(vision_frame : VisionFrame) -> List[Face]:
 				faces = create_faces(vision_frame, bounding_box_list, face_landmark_5_list, score_list)
 			if faces:
 				set_static_faces(vision_frame, faces)
-		if deepfuze.globals.face_analyser_order:
-			faces = sort_by_order(faces, deepfuze.globals.face_analyser_order)
-		if deepfuze.globals.face_analyser_age:
-			faces = filter_by_age(faces, deepfuze.globals.face_analyser_age)
-		if deepfuze.globals.face_analyser_gender:
-			faces = filter_by_gender(faces, deepfuze.globals.face_analyser_gender)
+		#if deepfuze.globals.face_analyser_order:
+		faces = sort_by_order(faces, deepfuze.globals.face_analyser_order)
+		#if deepfuze.globals.face_analyser_age:
+		#	faces = filter_by_age(faces, deepfuze.globals.face_analyser_age)
+		#if deepfuze.globals.face_analyser_gender:
+		#	faces = filter_by_gender(faces, deepfuze.globals.face_analyser_gender)
 	except (AttributeError, ValueError):
 		pass
 	return faces
@@ -551,23 +551,23 @@ def calc_face_distance(face : Face, reference_face : Face) -> float:
 
 
 def sort_by_order(faces : List[Face], order : FaceAnalyserOrder) -> List[Face]:
-	if order == 'left-right':
-		return sorted(faces, key = lambda face: face.bounding_box[0])
-	if order == 'right-left':
-		return sorted(faces, key = lambda face: face.bounding_box[0], reverse = True)
-	if order == 'top-bottom':
-		return sorted(faces, key = lambda face: face.bounding_box[1])
-	if order == 'bottom-top':
-		return sorted(faces, key = lambda face: face.bounding_box[1], reverse = True)
-	if order == 'small-large':
-		return sorted(faces, key = lambda face: (face.bounding_box[2] - face.bounding_box[0]) * (face.bounding_box[3] - face.bounding_box[1]))
-	if order == 'large-small':
-		return sorted(faces, key = lambda face: (face.bounding_box[2] - face.bounding_box[0]) * (face.bounding_box[3] - face.bounding_box[1]), reverse = True)
-	if order == 'best-worst':
-		return sorted(faces, key = lambda face: face.scores.get('detector'), reverse = True)
-	if order == 'worst-best':
-		return sorted(faces, key = lambda face: face.scores.get('detector'))
-	return faces
+	#if order == 'left-right':
+	#	return sorted(faces, key = lambda face: face.bounding_box[0])
+	#if order == 'right-left':
+	#	return sorted(faces, key = lambda face: face.bounding_box[0], reverse = True)
+	#if order == 'top-bottom':
+	#	return sorted(faces, key = lambda face: face.bounding_box[1])
+	#if order == 'bottom-top':
+	#	return sorted(faces, key = lambda face: face.bounding_box[1], reverse = True)
+	#if order == 'small-large':
+	#	return sorted(faces, key = lambda face: (face.bounding_box[2] - face.bounding_box[0]) * (face.bounding_box[3] - face.bounding_box[1]))
+	#if order == 'large-small':
+	#	return sorted(faces, key = lambda face: (face.bounding_box[2] - face.bounding_box[0]) * (face.bounding_box[3] - face.bounding_box[1]), reverse = True)
+	#if order == 'best-worst':
+	return sorted(faces, key = lambda face: face.scores.get('detector'), reverse = True)
+	#if order == 'worst-best':
+	#	return sorted(faces, key = lambda face: face.scores.get('detector'))
+	#return faces
 
 
 def filter_by_age(faces : List[Face], age : FaceAnalyserAge) -> List[Face]:
